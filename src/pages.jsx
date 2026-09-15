@@ -529,6 +529,21 @@ export function ActivityPage() {
   const [loading, setLoading] = useState(true);
   const [calLoading, setCalLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const calRef = useRef(null);
+  const [calEdge, setCalEdge] = useState({ l: false, r: false });
+
+  /* fade tepi kalender: hanya muncul saat masih bisa digeser */
+  const updCalEdge = () => {
+    const el = calRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setCalEdge({ l: el.scrollLeft > 4, r: el.scrollLeft < max - 4 });
+  };
+  useEffect(() => {
+    updCalEdge();
+    window.addEventListener("resize", updCalEdge);
+    return () => window.removeEventListener("resize", updCalEdge);
+  }, [days, calLoading]);
 
   /* profil ringkas untuk 3 stat */
   useEffect(() => {
@@ -609,7 +624,12 @@ export function ActivityPage() {
             <p className="text-[15px] text-ink dark:text-white">
               {calLoading ? "…" : (total ?? 0)} {t("act.contrib")} {year}
             </p>
-            <div className="no-scrollbar mt-3 overflow-x-auto rounded-lg border border-line p-3 dark:border-[#30363d]">
+            <div className="relative mt-3">
+              <div
+                ref={calRef}
+                onScroll={updCalEdge}
+                className="no-scrollbar overflow-x-auto scroll-smooth rounded-lg border border-line p-3 dark:border-[#30363d]"
+              >
               {calLoading ? (
                 <div className="flex w-max gap-[3px]" aria-hidden="true">
                   {Array.from({ length: 40 }, (_, i) => (
@@ -635,9 +655,9 @@ export function ActivityPage() {
               ) : (
                 <>
                   <div className="flex w-max gap-2">
-                    {/* label hari */}
-                    <div className="flex flex-none flex-col">
-                      <span className="h-[15px]" />
+                    {/* label hari — menempel kiri saat kalender digeser */}
+                    <div className="sticky left-0 z-10 -ml-3 flex flex-none flex-col bg-white pl-3 dark:bg-[#151515]">
+                      <span className="h-[17px]" />
                       {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
                         <span key={i} className="flex h-[10px] items-center pr-1 text-[9px] leading-none text-muted dark:text-[#7d8590] [&:not(:last-child)]:mb-[3px]">
                           {d}
@@ -645,10 +665,10 @@ export function ActivityPage() {
                       ))}
                     </div>
                     <div className="flex-none">
-                      {/* label bulan */}
-                      <div className="flex gap-[3px]">
+                      {/* label bulan — tinggi dikunci agar sejajar dengan spacer */}
+                      <div className="flex h-[13px] gap-[3px]">
                         {months.map((m, i) => (
-                          <span key={i} className="w-[10px] flex-none overflow-visible whitespace-nowrap text-[9px] text-muted dark:text-[#7d8590]">
+                          <span key={i} className="w-[10px] flex-none overflow-visible whitespace-nowrap text-[9px] leading-none text-muted dark:text-[#7d8590]">
                             {m}
                           </span>
                         ))}
@@ -693,7 +713,18 @@ export function ActivityPage() {
                   </div>
                 </>
               )}
+              </div>
+              {/* fade tepi — penanda halus bahwa kalender bisa digeser */}
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-y-0 left-0 z-20 w-8 rounded-l-lg bg-gradient-to-r from-white to-transparent transition-opacity dark:from-[#151515] ${calEdge.l ? "opacity-100" : "opacity-0"}`}
+              />
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute inset-y-0 right-0 z-20 w-8 rounded-r-lg bg-gradient-to-l from-white to-transparent transition-opacity dark:from-[#151515] ${calEdge.r ? "opacity-100" : "opacity-0"}`}
+              />
             </div>
+            <p className="mt-2 text-[11.5px] text-muted sm:hidden dark:text-[#7d8590]">{t("act.swipe")}</p>
           </div>
 
           {/* pemilih tahun ala GitHub — baris geser di mobile, kolom di desktop */}
