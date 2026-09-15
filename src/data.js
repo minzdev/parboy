@@ -109,10 +109,10 @@ export const experience = [
     title: "Back End & Front End Developer",
     org: "Dicoding x DBS Foundation",
     bullets: [
-      "Mengembangkan aplikasi web front end menggunakan JavaScript modern dan praktik komponen yang dapat digunakan ulang.",
-      "Membangun layanan back end RESTful API dengan Node.js beserta validasi dan penanganan error.",
-      "Menerapkan prinsip clean code, version control dengan Git, dan kolaborasi tim secara agile.",
-      "Menyelesaikan rangkaian proyek dan submission sebagai bagian dari DBS Foundation Coding Camp.",
+      "Bikin aplikasi web front-end pakai JavaScript modern dan komponen yang bisa dipakai ulang.",
+      "Bikin REST API pakai Node.js lengkap dengan validasi dan penanganan error.",
+      "Kerja pakai Git, kode bersih, dan kolaborasi model agile.",
+      "Lulus semua proyek dan submission di Coding Camp DBS Foundation.",
     ],
   },
   {
@@ -120,10 +120,10 @@ export const experience = [
     title: "Staff Finance & IT Support",
     org: "PT. Magati Unggul",
     bullets: [
-      "Mengelola pencatatan keuangan, rekonsiliasi, dan pelaporan pajak perusahaan.",
-      "Menangani administrasi perpajakan dan kepatuhan sesuai ketentuan yang berlaku.",
-      "Memberikan dukungan IT untuk operasional kantor, termasuk perangkat dan jaringan.",
-      "Mendokumentasikan prosedur keuangan dan membantu proses audit internal.",
+      "Catat dan rekonsiliasi keuangan plus laporan pajak perusahaan.",
+      "Urus administrasi dan kepatuhan pajak.",
+      "Jadi IT support kantor: perangkat dan jaringan.",
+      "Bikin dokumentasi prosedur keuangan dan bantu audit internal.",
     ],
   },
   {
@@ -131,10 +131,10 @@ export const experience = [
     title: "Hardware & System Engineer",
     org: "CV. Salafindo",
     bullets: [
-      "Melakukan instalasi, konfigurasi, dan pemeliharaan perangkat keras komputer dan jaringan.",
-      "Mendiagnosis dan memperbaiki masalah perangkat keras serta sistem operasi.",
-      "Mengonfigurasi infrastruktur jaringan dan memastikan ketersediaan sistem.",
-      "Memberikan dukungan teknis kepada pengguna dan menyusun dokumentasi perawatan.",
+      "Rakit, install, dan rawat komputer serta jaringan.",
+      "Benerin hardware dan sistem operasi yang bermasalah.",
+      "Setting infrastruktur jaringan biar sistem selalu jalan.",
+      "Bantu user yang kesulitan teknis dan nulis panduan perawatan.",
     ],
   },
 ];
