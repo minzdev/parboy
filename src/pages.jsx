@@ -238,7 +238,7 @@ function TimelineCard({ icon: Icon, date, title, org, desc, bullets, delay = 0 }
   return (
     <Reveal delay={delay}>
       <div className={card}>
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
           <div className="flex min-w-0 items-center gap-3">
             <span className="grid h-11 w-11 flex-none place-items-center rounded-xl border border-line bg-background text-muted dark:border-[#2c2c2c] dark:bg-[#0b0b0b] dark:text-[#b5b5b5]">
               <Icon size={19} />
@@ -248,8 +248,8 @@ function TimelineCard({ icon: Icon, date, title, org, desc, bullets, delay = 0 }
               <p className="text-[13.5px] font-medium text-primary">{org}</p>
             </div>
           </div>
-          <p className="flex flex-none items-center gap-1.5 pt-1 font-fira text-[11.5px] text-muted dark:text-[#8a8a8a]">
-            <CalendarDays size={14} /> {date}
+          <p className="flex flex-none items-center gap-1.5 pl-14 font-fira text-[11.5px] text-muted sm:pl-0 sm:pt-1 dark:text-[#8a8a8a]">
+            <CalendarDays size={14} className="flex-none" /> <span className="truncate">{date}</span>
           </p>
         </div>
         {bullets ? (
@@ -307,15 +307,15 @@ export function PengalamanPage() {
       <SubHead no={t("kred.no")} title={t("kred.title")} desc={t("kred.desc")} />
       {/* grup: pengalaman kerja */}
       <Reveal>
-        <div className="mb-3 flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-lg border border-line bg-surface text-primary dark:border-[#2c2c2c] dark:bg-[#151515]">
+        <div className="mb-3 flex items-center gap-2 sm:gap-2.5">
+          <span className="grid h-8 w-8 flex-none place-items-center rounded-lg border border-line bg-surface text-primary dark:border-[#2c2c2c] dark:bg-[#151515]">
             <Briefcase size={15} />
           </span>
-          <h2 className="text-[15px] font-bold tracking-tight text-ink dark:text-white">{t("kred.expTitle")}</h2>
-          <span className="rounded-full bg-tint px-2 py-0.5 font-fira text-[11px] text-hover dark:bg-[#241c10] dark:text-[#d8bc7f]">
+          <h2 className="truncate text-[14px] font-bold tracking-tight text-ink sm:text-[15px] dark:text-white">{t("kred.expTitle")}</h2>
+          <span className="flex-none rounded-full bg-tint px-2 py-0.5 font-fira text-[11px] text-hover dark:bg-[#241c10] dark:text-[#d8bc7f]">
             {experience.length}
           </span>
-          <span className="ml-1 h-px flex-1 bg-line dark:bg-[#232323]" aria-hidden="true" />
+          <span className="ml-1 h-px min-w-4 flex-1 bg-line dark:bg-[#232323]" aria-hidden="true" />
         </div>
       </Reveal>
       <div className="space-y-4">
@@ -334,15 +334,15 @@ export function PengalamanPage() {
 
       {/* grup: pendidikan — digabung agar tidak ada halaman sepi satu kartu */}
       <Reveal>
-        <div className="mb-3 mt-10 flex items-center gap-2.5">
-          <span className="grid h-8 w-8 place-items-center rounded-lg border border-line bg-surface text-primary dark:border-[#2c2c2c] dark:bg-[#151515]">
+        <div className="mb-3 mt-10 flex items-center gap-2 sm:gap-2.5">
+          <span className="grid h-8 w-8 flex-none place-items-center rounded-lg border border-line bg-surface text-primary dark:border-[#2c2c2c] dark:bg-[#151515]">
             <GraduationCap size={16} />
           </span>
-          <h2 className="text-[15px] font-bold tracking-tight text-ink dark:text-white">{t("kred.eduTitle")}</h2>
-          <span className="rounded-full bg-tint px-2 py-0.5 font-fira text-[11px] text-hover dark:bg-[#241c10] dark:text-[#d8bc7f]">
+          <h2 className="truncate text-[14px] font-bold tracking-tight text-ink sm:text-[15px] dark:text-white">{t("kred.eduTitle")}</h2>
+          <span className="flex-none rounded-full bg-tint px-2 py-0.5 font-fira text-[11px] text-hover dark:bg-[#241c10] dark:text-[#d8bc7f]">
             {education.length}
           </span>
-          <span className="ml-1 h-px flex-1 bg-line dark:bg-[#232323]" aria-hidden="true" />
+          <span className="ml-1 h-px min-w-4 flex-1 bg-line dark:bg-[#232323]" aria-hidden="true" />
         </div>
       </Reveal>
       <div className="space-y-4">
@@ -505,14 +505,14 @@ function toWeeks(days) {
   return weeks;
 }
 
-function monthLabels(weeks, lang) {
+function monthLabels(weeks, lang, year) {
   const fmt = new Intl.DateTimeFormat(lang === "en" ? "en-US" : "id-ID", { month: "short" });
   const labels = [];
   let prev = -1;
   weeks.forEach((w) => {
     const day = w.find(Boolean);
     const m = day ? new Date(`${day.date}T00:00:00`).getMonth() : prev;
-    labels.push(m !== prev ? fmt.format(new Date(2026, m, 1)) : "");
+    labels.push(m !== prev ? fmt.format(new Date(year, m, 1)) : "");
     if (m !== prev) prev = m;
   });
   return labels;
@@ -578,7 +578,7 @@ export function ActivityPage() {
   const sinceYear = user?.created_at ? new Date(user.created_at).getFullYear() : thisYear - 4;
   const years = Array.from({ length: thisYear - sinceYear + 1 }, (_, i) => thisYear - i);
   const weeks = toWeeks(days);
-  const months = monthLabels(weeks, lang);
+  const months = monthLabels(weeks, lang, year);
 
   const stats = [
     { label: t("act.repos"), value: loading ? "…" : (user?.public_repos ?? "—") },
@@ -611,7 +611,7 @@ export function ActivityPage() {
             </p>
             <div className="no-scrollbar mt-3 overflow-x-auto rounded-lg border border-line p-3 dark:border-[#30363d]">
               {calLoading ? (
-                <div className="flex gap-[3px]" aria-hidden="true">
+                <div className="flex w-max gap-[3px]" aria-hidden="true">
                   {Array.from({ length: 40 }, (_, i) => (
                     <div key={i} className="flex flex-col gap-[3px]">
                       {Array.from({ length: 7 }, (_, j) => (
@@ -634,7 +634,7 @@ export function ActivityPage() {
                 </div>
               ) : (
                 <>
-                  <div className="flex gap-2">
+                  <div className="flex w-max gap-2">
                     {/* label hari */}
                     <div className="flex flex-none flex-col">
                       <span className="h-[15px]" />
@@ -644,7 +644,7 @@ export function ActivityPage() {
                         </span>
                       ))}
                     </div>
-                    <div className="min-w-0">
+                    <div className="flex-none">
                       {/* label bulan */}
                       <div className="flex gap-[3px]">
                         {months.map((m, i) => (
@@ -656,7 +656,7 @@ export function ActivityPage() {
                       {/* grid kontribusi */}
                       <div className="mt-1 flex gap-[3px]">
                         {weeks.map((w, wi) => (
-                          <div key={wi} className="flex flex-col gap-[3px]">
+                          <div key={wi} className="flex flex-none flex-col gap-[3px]">
                             {Array.from({ length: 7 }, (_, di) => {
                               const d = w[di];
                               if (!d) return <span key={di} className="h-[10px] w-[10px]" />;
@@ -696,18 +696,18 @@ export function ActivityPage() {
             </div>
           </div>
 
-          {/* pemilih tahun ala GitHub */}
-          <div className="flex flex-none gap-1.5 overflow-x-auto sm:w-[104px] sm:flex-col">
+          {/* pemilih tahun ala GitHub — baris geser di mobile, kolom di desktop */}
+          <div className="no-scrollbar -mx-1 flex flex-none gap-1.5 overflow-x-auto px-1 pb-1 sm:mx-0 sm:w-[104px] sm:flex-col sm:overflow-visible sm:px-0 sm:pb-0">
             {years.map((y) => (
               <button
                 key={y}
                 type="button"
                 onClick={() => setYear(y)}
                 aria-pressed={year === y}
-                className={`flex-none rounded-lg px-4 py-2 text-[12.5px] font-medium transition-colors sm:w-full sm:text-left ${
+                className={`flex-none rounded-lg border px-4 py-2 text-[12.5px] font-medium transition-colors sm:w-full sm:text-left ${
                   year === y
-                    ? "bg-[#0969da] text-white"
-                    : "text-muted hover:bg-line/60 hover:text-ink dark:text-[#7d8590] dark:hover:bg-[#21262d] dark:hover:text-white"
+                    ? "border-[#0969da] bg-[#0969da] text-white"
+                    : "border-line text-muted hover:border-primary/50 hover:text-ink dark:border-[#30363d] dark:text-[#7d8590] dark:hover:text-white"
                 }`}
               >
                 {y}
