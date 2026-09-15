@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --font-jakarta: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-fira: "Fira Code", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary: #c9a96a;
+  --color-hover: #a8823f;
+  --color-background: #f4f6f9;
+  --color-surface: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-muted: #656565;
+  --color-line: #d8dde3;
+  --color-tint: #f3ead6;
+  --color-sec: #e8e8e8;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f4f6f9;
+  color: #656565;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+[data-theme="dark"] body {
+  background: #0b0b0b;
+  color: #a3a3a3;
+}
+
+::selection {
+  background: #c9a96a;
+  color: #1c1508;
+}
+
+/* aksen emas kecil: gelapkan di mode terang agar kontras terbaca */
+[data-theme="light"] .text-primary {
+  color: #8a6d2f;
+}
+
+/* progress bar atas saat pindah halaman */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  z-index: 9999;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #c9a96a, transparent);
+  transition: width 0.45s ease, opacity 0.3s ease;
+}
+#progress-bar.loading {
+  opacity: 1;
+  width: 100%;
+}
+#progress-bar.done {
+  opacity: 0;
+  width: 100%;
+}
+
+/* melayang pelan via GPU (ganti float JS per-frame) */
+@keyframes drift {
+  0%, 100% { transform: translateY(-14px); }
+  50% { transform: translateY(14px); }
+}
+.animate-drift {
+  animation: drift 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* tekstur grain premium */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* scrollbar global: ramping dengan jeda dari tepi */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #c3c9d1;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: #a9b0b9; border: 2px solid transparent; background-clip: padding-box; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #333; border: 2px solid transparent; background-clip: padding-box; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: #444; border: 2px solid transparent; background-clip: padding-box; }
+
+/* sembunyikan scroll di area navigasi (tetap bisa di-scroll) */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  .animate-drift { animation: none; }
+}

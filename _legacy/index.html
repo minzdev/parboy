@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suparman — Web Developer</title>
+  <meta name="description" content="Portfolio Web Developer — membangun aplikasi web yang bersih, cepat, dan mudah dirawat. Lulusan S1 Teknologi Informasi, tersertifikasi BNSP." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231C1B1A'/><text x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23FAF9F7' text-anchor='middle'>S</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}.mobile-nav{display:none!important}</style></noscript>
+  <script>
+    (function(){try{var s=localStorage.getItem('pf-theme');if(s){document.documentElement.setAttribute('data-theme',s)}else if(matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark')}}catch(e){}})();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#ringkasan">Lewati ke konten</a>
+
+  <header class="site-head" id="top">
+    <div class="wrap head-in">
+      <a class="brand" href="#beranda" aria-label="Kembali ke beranda">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span class="brand-text">Suparman <em>/ web developer</em></span>
+      </a>
+      <nav class="nav" aria-label="Navigasi utama" id="nav">
+        <a href="#beranda" data-nav="beranda">Beranda</a>
+        <a href="#ringkasan" data-nav="ringkasan">Tentang</a>
+        <a href="#pengalaman" data-nav="pengalaman">Pengalaman</a>
+        <a href="#keahlian" data-nav="keahlian">Keahlian</a>
+        <a href="#proyek" data-nav="proyek">Proyek</a>
+        <a href="#pendidikan" data-nav="pendidikan">Pendidikan</a>
+        <a href="#kontak" data-nav="kontak">Kontak</a>
+      </nav>
+      <div class="head-actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Ganti tema terang / gelap" title="Ganti tema">
+          <svg class="ic-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.3 4.3l1.7 1.7M18 18l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.3 19.7 6 18M18 6l1.7-1.7"/></svg>
+          <svg class="ic-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 13.2A8.2 8.2 0 0 1 10.8 4 8.2 8.2 0 1 0 20 13.2Z"/></svg>
+        </button>
+        <a class="btn btn-small" href="#" onclick="window.print();return false;">Unduh CV</a>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <div class="wrap mobile-nav-in">
+      <a href="#beranda"><span class="mono">01</span>Beranda</a>
+      <a href="#ringkasan"><span class="mono">02</span>Tentang</a>
+      <a href="#pengalaman"><span class="mono">03</span>Pengalaman</a>
+      <a href="#keahlian"><span class="mono">04</span>Keahlian</a>
+      <a href="#proyek"><span class="mono">05</span>Proyek</a>
+      <a href="#pendidikan"><span class="mono">06</span>Pendidikan</a>
+      <a href="#kontak"><span class="mono">07</span>Kontak</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 01 / BERANDA — header ala CV ATS, bukan hero bombastis -->
+    <section class="wrap hero" id="beranda" aria-label="Beranda">
+      <p class="kicker reveal">Portfolio — tersedia untuk proyek freelance &amp; full-time</p>
+      <div class="hero-grid">
+        <div>
+          <h1 class="reveal">Suparman<br /><span>Web Developer</span></h1>
+          <p class="lede reveal">Latar S1 Teknologi Informasi. Saya membangun aplikasi web yang bersih, responsif, dan berorientasi pada kebutuhan pengguna — dari company profile sampai sistem informasi.</p>
+          <ul class="contact-line reveal" aria-label="Kontak singkat">
+            <li>Jakarta, Indonesia</li>
+            <li><a href="mailto:halo@parman.biz.id">halo@parman.biz.id</a></li>
+            <li><a href="https://parman.biz.id" target="_blank" rel="noopener">parman.biz.id</a></li>
+          </ul>
+          <div class="hero-cta reveal">
+            <a class="btn" href="#proyek">Lihat proyek</a>
+            <a class="btn btn-ghost" href="#kontak">Hubungi saya</a>
+          </div>
+          <dl class="facts reveal">
+            <div><dt>Pendidikan</dt><dd>S1 Teknologi Informasi</dd></div>
+            <div><dt>Sertifikasi</dt><dd>BNSP · DBS Coding Camp</dd></div>
+            <div><dt>Fokus</dt><dd>Frontend · Backend ringan</dd></div>
+          </dl>
+        </div>
+        <aside class="cv-card reveal" aria-label="Kartu ringkas CV">
+          <div class="cv-card-top">
+            <p class="mono">CURRICULUM VITAE — 2026</p>
+            <p class="cv-status"><span class="dot" aria-hidden="true"></span> Open to work</p>
+          </div>
+          <ul class="cv-list">
+            <li><span>HTML / CSS / JavaScript</span><span class="mono">mahir</span></li>
+            <li><span>React / Next.js</span><span class="mono">mahir</span></li>
+            <li><span>Node.js / Express</span><span class="mono">menengah</span></li>
+            <li><span>MySQL / PostgreSQL</span><span class="mono">menengah</span></li>
+            <li><span>Git / cPanel / VPS</span><span class="mono">terbiasa</span></li>
+          </ul>
+          <div class="cv-foot">
+            <a href="#ringkasan">Baca ringkasan lengkap →</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 02 / TENTANG -->
+    <section class="wrap section" id="ringkasan" aria-labelledby="h-ringkasan">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">01 — Tentang</p>
+        <h2 id="h-ringkasan">Ringkasan yang jujur, tanpa jargon.</h2>
+      </header>
+      <div class="two-col">
+        <p class="reveal">Saya Suparman, Junior Web Developer &amp; Analis Program. Terbiasa menerjemahkan kebutuhan pengguna menjadi alur yang sederhana, lalu mewujudkannya dalam kode yang rapi dan mudah dirawat. Pengalaman saya mencakup aplikasi data, dashboard admin, dan website company profile.</p>
+        <div class="reveal tick-wrap">
+          <p class="mono mini-label">Yang saya kerjakan sehari-hari</p>
+          <ul class="tick">
+            <li>Membangun UI responsif dari Figma / sketsa ke HTML + React</li>
+            <li>Membuat REST API sederhana dan integrasi database</li>
+            <li>Deploy ke shared hosting, VPS, dan Vercel</li>
+            <li>Menulis dokumentasi singkat agar tim mudah melanjutkan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / PENGALAMAN -->
+    <section class="wrap section" id="pengalaman" aria-labelledby="h-pengalaman">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">02 — Pengalaman</p>
+        <h2 id="h-pengalaman">Riwayat kerja &amp; proyek.</h2>
+      </header>
+      <ol class="timeline">
+        <li class="reveal">
+          <div class="t-row">
+            <div>
+              <h3>Web Developer — Freelance</h3>
+              <p class="t-sub">Remote · 2023 — Sekarang</p>
+            </div>
+            <p class="mono t-year">2023 →</p>
+          </div>
+          <ul>
+            <li>Membangun 8+ website company profile &amp; sistem informasi dengan React, PHP, dan MySQL.</li>
+            <li>Memangkas waktu muat halaman rata-rata 40% dengan optimasi gambar dan code-splitting.</li>
+            <li>Menyusun SRS singkat dan handover dokumen untuk setiap serah terima.</li>
+          </ul>
+          <p class="tags"><span>React</span><span>JavaScript</span><span>MySQL</span><span>cPanel</span></p>
+        </li>
+        <li class="reveal">
+          <div class="t-row">
+            <div>
+              <h3>Analis Program — Magang</h3>
+              <p class="t-sub">Jakarta · 2022 — 2023</p>
+            </div>
+            <p class="mono t-year">2022</p>
+          </div>
+          <ul>
+            <li>Menganalisis kebutuhan modul surat-menyurat dan memetakan ke use-case &amp; ERD.</li>
+            <li>Membantu testing UAT dan menulis panduan pengguna 20 halaman.</li>
+          </ul>
+          <p class="tags"><span>Analisis Sistem</span><span>UML</span><span>Testing</span></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 04 / KEAHLIAN -->
+    <section class="wrap section" id="keahlian" aria-labelledby="h-keahlian">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">03 — Keahlian</p>
+        <h2 id="h-keahlian">Dikelompokkan seperti di CV ATS.</h2>
+      </header>
+      <div class="skill-grid">
+        <div class="skill reveal">
+          <h3>Frontend</h3>
+          <p>HTML5, CSS3, JavaScript (ES6+), TypeScript dasar, React, Next.js, Tailwind CSS, Bootstrap. Fokus: layout rapi, aksesibel, dan cepat di HP.</p>
+        </div>
+        <div class="skill reveal">
+          <h3>Backend &amp; Data</h3>
+          <p>Node.js, Express, PHP dasar, REST API, MySQL, PostgreSQL dasar, autentikasi JWT &amp; session.</p>
+        </div>
+        <div class="skill reveal">
+          <h3>Tools &amp; Deploy</h3>
+          <p>Git &amp; GitHub, VS Code, Figma (handoff), Vercel, cPanel, VPS dasar, Postman.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / PROYEK -->
+    <section class="wrap section" id="proyek" aria-labelledby="h-proyek">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">04 — Proyek pilihan</p>
+        <h2 id="h-proyek">Sedikit, tapi selesai &amp; dipakai.</h2>
+        <p class="sec-note">Format daftar seperti lampiran CV — tahun, peran, hasil. <a href="https://parman.biz.id/projects.html" target="_blank" rel="noopener">Arsip lengkap →</a></p>
+      </header>
+      <ol class="projects">
+        <li class="reveal">
+          <a class="p-row" href="#" onclick="return false" aria-label="Sistem Informasi Surat — detail">
+            <span class="mono p-year">2024</span>
+            <span class="p-main">
+              <strong>Sistem Informasi Surat &amp; Arsip</strong>
+              <span class="p-desc">Nomor surat otomatis, disposisi, dan pencarian arsip. Dipakai harian oleh 30+ staf.</span>
+              <span class="tags"><span>React</span><span>Express</span><span>MySQL</span></span>
+            </span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="reveal">
+          <a class="p-row" href="#" onclick="return false" aria-label="Dashboard Monitoring — detail">
+            <span class="mono p-year">2024</span>
+            <span class="p-main">
+              <strong>Dashboard Monitoring Magang</strong>
+              <span class="p-desc">Presensi, logbook, dan rekap nilai dalam satu dasbor admin yang ringan.</span>
+              <span class="tags"><span>Next.js</span><span>PostgreSQL</span></span>
+            </span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="reveal">
+          <a class="p-row" href="#" onclick="return false" aria-label="Company profile — detail">
+            <span class="mono p-year">2023</span>
+            <span class="p-main">
+              <strong>Company Profile + Katalog</strong>
+              <span class="p-desc">Multi-bahasa ID/EN, skor Lighthouse 95+, form WhatsApp langsung.</span>
+              <span class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></span>
+            </span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 06 / PENDIDIKAN + SERTIFIKASI -->
+    <section class="wrap section" id="pendidikan" aria-labelledby="h-pendidikan">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">05 — Pendidikan</p>
+        <h2 id="h-pendidikan">Pendidikan &amp; sertifikasi.</h2>
+      </header>
+      <div class="two-col edu">
+        <div class="reveal edu-card">
+          <h3>S1 Teknologi Informasi</h3>
+          <p class="t-sub">Universitas — 2019 — 2023 · IPK 3.6/4.0</p>
+          <p>Tugas akhir: sistem informasi berbasis web dengan fokus usability untuk staf non-teknis.</p>
+        </div>
+        <ul class="certs reveal">
+          <li><span><strong>Junior Web Developer — BNSP</strong><span class="t-sub">Lisensi kompetensi nasional · 2023</span></span><span class="mono">valid</span></li>
+          <li><span><strong>DBS Foundation Coding Camp</strong><span class="t-sub">Front-End &amp; Back-End · 2023</span></span><span class="mono">lulus</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07 / KONTAK -->
+    <section class="wrap section contact" id="kontak" aria-labelledby="h-kontak">
+      <header class="sec-head reveal">
+        <p class="mono sec-no">06 — Kontak</p>
+        <h2 id="h-kontak">Mari diskusikan kebutuhan Anda.</h2>
+      </header>
+      <div class="contact-grid">
+        <p class="reveal contact-big">Ceritakan singkat: kebutuhan, tenggat, dan anggaran. Saya akan membalas maksimal 1×24 jam dengan estimasi yang masuk akal — bukan janji manis.</p>
+        <div class="reveal contact-side">
+          <a class="btn" href="mailto:halo@parman.biz.id?subject=Halo%20Suparman%20—%20Proyek%20Web">halo@parman.biz.id</a>
+          <ul class="links">
+            <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a></li>
+            <li><a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+            <li><a href="https://wa.me/6280000000000" target="_blank" rel="noopener">WhatsApp ↗</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap foot-in">
+      <p>© 2026 Suparman — Dibangun manual dengan HTML + CSS, tanpa template berat.</p>
+      <p class="mono"><a href="#beranda" id="toTop">Kembali ke atas ↑</a> · Terakhir diperbarui Sep 2026</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
