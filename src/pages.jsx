@@ -6,7 +6,7 @@ import {
   ArrowUpRight, Braces, CalendarDays, Code2, BadgeCheck, Award,
   Palette, Clapperboard, FileSpreadsheet, ReceiptText, Landmark,
   Wallet, ShieldCheck, Cpu, Wrench, Network, FileText,
-  Activity,
+  Activity, Download,
 } from "lucide-react";
 import {
   SiJavascript, SiReact, SiNodedotjs, SiLaravel, SiMysql, SiFirebase,
@@ -21,6 +21,12 @@ import {
 import { useLang } from "./i18n";
 
 const ease = [0.22, 1, 0.36, 1];
+
+/* jsPDF dimuat malas — hanya diunduh browser saat tombol CV diklik */
+async function saveCV(lang, t) {
+  const { downloadCV } = await import("./cv");
+  downloadCV(lang, t);
+}
 
 function Page({ children }) {
   return (
@@ -271,7 +277,7 @@ function TimelineCard({ icon: Icon, date, title, org, desc, bullets, delay = 0 }
 
 /* ================= TENTANG ================= */
 export function TentangPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <Page>
       <SubHead no={t("tentang.no")} title={t("tentang.title")} desc={t("tentang.desc")} />
@@ -293,6 +299,13 @@ export function TentangPage() {
               <li key={i} className="flex gap-3"><span className="text-primary">—</span>{t(`daily.${i}`)}</li>
             ))}
           </ul>
+          <button
+            type="button"
+            onClick={() => saveCV(lang, t)}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-ink py-3 text-[13.5px] font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-primary hover:text-[#1c1508] dark:bg-white dark:text-black dark:hover:bg-primary dark:hover:text-[#1c1508]"
+          >
+            <Download size={16} /> {t("cv.download")}
+          </button>
         </div>
       </Reveal>
     </Page>

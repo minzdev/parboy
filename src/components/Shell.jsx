@@ -3,11 +3,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Home, User, FlaskConical, Briefcase, Mail,
-  Moon, Sun, Menu, X, Code2, BadgeCheck, Activity,
+  Moon, Sun, Menu, X, Code2, BadgeCheck, Activity, Download,
 } from "lucide-react";
 import { SiGithub, SiWhatsapp, SiGmail } from "react-icons/si";
 import { profile, socials } from "../data";
 import { useLang } from "../i18n";
+
+/* jsPDF dimuat malas — hanya diunduh browser saat tombol CV diklik */
+async function saveCV(lang, t) {
+  const { downloadCV } = await import("../cv");
+  downloadCV(lang, t);
+}
 
 /* ikon brand LinkedIn (tidak tersedia di paket ikon) */
 export function LinkedinBrand({ size = 18 }) {
@@ -225,7 +231,7 @@ function MenuRows({ items, onNavigate }) {
 
 /* ---------- sidebar desktop ---------- */
 export function Sidebar({ theme, toggle }) {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const items = useMenu();
   return (
     <aside className="no-scrollbar hidden w-[280px] flex-none lg:block lg:sticky lg:top-6 lg:max-h-[calc(100svh-3rem)] lg:overflow-y-auto">
@@ -250,6 +256,13 @@ export function Sidebar({ theme, toggle }) {
         >
           {t("ui.letsTalk")}
         </Link>
+        <button
+          type="button"
+          onClick={() => saveCV(lang, t)}
+          className="flex items-center justify-center gap-2 rounded-xl border border-line bg-surface py-3 text-[14px] font-bold text-ink transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:text-primary dark:border-[#232323] dark:bg-[#151515] dark:text-white"
+        >
+          <Download size={16} /> {t("cv.download")}
+        </button>
         <PrefsCluster theme={theme} toggle={toggle} className="w-full" />
 
         {/* status + sosial */}
@@ -289,7 +302,7 @@ export function Sidebar({ theme, toggle }) {
 /* ---------- topbar + drawer mobile ---------- */
 export function MobileTopBar({ theme, toggle }) {
   const [open, setOpen] = useState(false);
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const items = useMenu();
   const close = () => setOpen(false);
 
@@ -333,7 +346,7 @@ export function MobileTopBar({ theme, toggle }) {
             aria-label="Navigasi seluler"
           >
             <MenuRows items={items} onNavigate={close} />
-            <div className="p-3">
+            <div className="grid gap-2 p-3">
               <Link
                 to="/kontak"
                 onClick={close}
@@ -341,6 +354,13 @@ export function MobileTopBar({ theme, toggle }) {
               >
                 {t("ui.letsTalk")}
               </Link>
+              <button
+                type="button"
+                onClick={() => { saveCV(lang, t); close(); }}
+                className="flex items-center justify-center gap-2 rounded-xl border border-line bg-background py-3 text-[14px] font-bold text-ink dark:border-[#2c2c2c] dark:bg-[#0b0b0b] dark:text-white"
+              >
+                <Download size={16} /> {t("cv.download")}
+              </button>
             </div>
           </motion.nav>
         )}
