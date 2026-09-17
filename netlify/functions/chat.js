@@ -1,6 +1,29 @@
 /* Netlify Function: proxy aman ke Gemini. Kunci API hanya hidup di server. */
 
-const MODELS = [process.env.GEMINI_MODEL || "gemini-2.5-flash", "gemini-2.0-flash"];
+const STATIC_MODELS = [process.env.GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0-flash"].filter(Boolean);
+
+/* tanya ke Google: model apa saja yang masih hidup untuk kunci ini */
+async function pickModel(key) {
+  try {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
+      headers: { "x-goog-api-key": key },
+    });
+    if (!r.ok) {
+      console.log(`chat: daftar model gagal (${r.status})`);
+      return null;
+    }
+    const j = await r.json();
+    const ms = (j.models || []).filter((m) =>
+      (m.supportedGenerationMethods || []).includes("generateContent")
+    );
+    const pick = ms.find((m) => /flash/i.test(m.name)) || ms[0];
+    const name = (pick?.name || "").replace(/^models\//, "");
+    if (name) console.log(`chat: pakai model ${name}`);
+    return name || null;
+  } catch {
+    return null;
+  }
+}
 
 const SYSTEM = `Kamu Asisten Parboy, asisten virtual di website portfolio Suparman (parboy.my.id). Jawab SELALU dalam bahasa Indonesia kecuali user jelas memakai bahasa Inggris.
 
@@ -64,6 +87,8 @@ export async function handler(event) {
   };
 
   let lastErr = "ai-fail";
+  const discovered = await pickModel(key);
+  const MODELS = [...new Set([discovered, ...STATIC_MODELS].filter(Boolean))];
   for (const model of MODELS) {
     try {
       const res = await fetch(
