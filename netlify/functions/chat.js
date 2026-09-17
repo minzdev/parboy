@@ -4,25 +4,31 @@ const STATIC_MODELS = [process.env.GEMINI_MODEL, "gemini-2.5-flash", "gemini-2.0
 
 /* tanya ke Google: model apa saja yang masih hidup untuk kunci ini */
 async function pickModel(key) {
-  try {
-    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
-      headers: { "x-goog-api-key": key },
-    });
-    if (!r.ok) {
-      console.log(`chat: daftar model gagal (${r.status})`);
+  for (const ver of ["v1beta", "v1"]) {
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/${ver}/models`, {
+        headers: { "x-goog-api-key": key },
+      });
+      if (!r.ok) {
+        console.log(`chat: daftar model ${ver} gagal (${r.status})`);
+        continue;
+      }
+      const j = await r.json();
+      const ms = (j.models || []).filter((m) =>
+        (m.supportedGenerationMethods || []).includes("generateContent")
+      );
+      const pick = ms.find((m) => /flash/i.test(m.name)) || ms[0];
+      const name = (pick?.name || "").replace(/^models\//, "");
+      if (name) {
+        console.log(`chat: pakai model ${name}`);
+        return name;
+      }
       return null;
+    } catch {
+      continue;
     }
-    const j = await r.json();
-    const ms = (j.models || []).filter((m) =>
-      (m.supportedGenerationMethods || []).includes("generateContent")
-    );
-    const pick = ms.find((m) => /flash/i.test(m.name)) || ms[0];
-    const name = (pick?.name || "").replace(/^models\//, "");
-    if (name) console.log(`chat: pakai model ${name}`);
-    return name || null;
-  } catch {
-    return null;
   }
+  return null;
 }
 
 const SYSTEM = `Kamu Asisten Parboy, asisten virtual di website portfolio Suparman (parboy.my.id). Jawab SELALU dalam bahasa Indonesia kecuali user jelas memakai bahasa Inggris.
@@ -89,43 +95,51 @@ export async function handler(event) {
   let lastErr = "ai-fail";
   const discovered = await pickModel(key);
   const MODELS = [...new Set([discovered, ...STATIC_MODELS].filter(Boolean))];
+  const VERSIONS = ["v1beta", "v1"];
+  let stop = false;
   for (const model of MODELS) {
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-          body: JSON.stringify(payload),
+    if (stop) break;
+    for (const ver of VERSIONS) {
+      try {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+            body: JSON.stringify(payload),
+          }
+        );
+        const j = await res.json().catch(() => ({}));
+        if (res.status === 404) {
+          console.log(`chat: ${ver}/${model} tidak ada (404)`);
+          continue; // coba versi / model berikutnya
         }
-      );
-      const j = await res.json().catch(() => ({}));
-      if (res.status === 404) {
-        console.log(`chat: model ${model} tidak ada (404), coba cadangan`);
-        continue; // coba model cadangan
-      }
-      if (!res.ok) {
-        const detail = JSON.stringify(j).slice(0, 300);
-        console.log(`chat: Google menolak (${res.status}): ${detail}`);
-        if (res.status === 429) {
-          lastErr = "quota";
-        } else if (res.status === 400 || res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(detail)) {
-          lastErr = "bad-key";
-        } else {
-          lastErr = "ai-fail";
+        if (!res.ok) {
+          const detail = JSON.stringify(j).slice(0, 300);
+          console.log(`chat: Google menolak (${res.status}): ${detail}`);
+          if (res.status === 429) {
+            lastErr = "quota";
+          } else if (res.status === 400 || res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(detail)) {
+            lastErr = "bad-key";
+          } else {
+            lastErr = "ai-fail";
+          }
+          stop = true;
+          break;
         }
+        const reply = j.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("").trim();
+        if (reply) {
+          console.log("chat: OK");
+          return cors(200, { reply });
+        }
+        lastErr = "ai-fail";
+        stop = true;
+        break;
+      } catch {
+        lastErr = "ai-fail";
+        stop = true;
         break;
       }
-      const reply = j.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("").trim();
-      if (reply) {
-        console.log("chat: OK");
-        return cors(200, { reply });
-      }
-      lastErr = "ai-fail";
-      break;
-    } catch {
-      lastErr = "ai-fail";
-      break;
     }
   }
   return cors(502, { error: lastErr });
