@@ -39,12 +39,40 @@ export function Chatbot() {
     }, 650);
   };
 
+  /* tanya AI lewat function; kalau gagal, pakai jawaban lokal */
+  const ask = async (userText) => {
+    const history = [...msgs, { from: "user", text: userText }].slice(-10).map((m) => ({
+      role: m.from === "bot" ? "bot" : "user",
+      text: m.text,
+    }));
+    setTyping(true);
+    try {
+      const res = await fetch("/.netlify/functions/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lang, messages: history }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (res.ok && j.reply) {
+        setMsgs((m) => [...m, { from: "bot", text: j.reply }]);
+      } else if (j.error === "no-key") {
+        setMsgs((m) => [...m, { from: "bot", text: t("chat.error") }]);
+      } else {
+        setMsgs((m) => [...m, { from: "bot", text: getReply(userText, lang) }]);
+      }
+    } catch {
+      setMsgs((m) => [...m, { from: "bot", text: getReply(userText, lang) }]);
+    } finally {
+      setTyping(false);
+    }
+  };
+
   const send = (raw) => {
     const text = String(raw || "").trim();
     if (!text || typing) return;
     setMsgs((m) => [...m, { from: "user", text }]);
     setInput("");
-    say(getReply(text, lang));
+    ask(text);
   };
 
   const quick = [t("chat.q0"), t("chat.q1"), t("chat.q2"), t("chat.q3")];

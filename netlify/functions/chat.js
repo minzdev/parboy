@@ -1,0 +1,93 @@
+/* Netlify Function: proxy aman ke Gemini. Kunci API hanya hidup di server. */
+
+const MODELS = [process.env.GEMINI_MODEL || "gemini-2.5-flash", "gemini-2.0-flash"];
+
+const SYSTEM = `Kamu Asisten Parboy, asisten virtual di website portfolio Suparman (parboy.my.id). Jawab SELALU dalam bahasa Indonesia kecuali user jelas memakai bahasa Inggris.
+
+FAKTA (jangan ngarang di luar ini):
+- Suparman: Web Developer & Analis Program, Jakarta, Indonesia.
+- Kontak: WhatsApp 0857-9752-2591, email suparman0921@gmail.com, GitHub @minzdev (github.com/minzdev), LinkedIn linkedin.com/in/suparman0921.
+- Pendidikan: S1 Teknologi Informasi, Universitas Bina Sarana Informatika, IPK 3.83/4.0.
+- Pengalaman: (1) Penata Kelola Sistem dan TI, Bidang Perencanaan, Sekretariat BPSDM Perhubungan - Kementerian Perhubungan, Agu 2026-Feb 2027. (2) Back End & Front End Developer, Dicoding x DBS Foundation, Feb-Jul 2025. (3) Staff Finance & IT Support, PT Magati Unggul, 2021-Agu 2024. (4) Hardware & System Engineer, CV Salafindo, 2018.
+- Proyek live: MyEkonomi - Personal Money Tracker (myekonomi.netlify.app/login); 7KCOM - database counter game Seven Knights (7kcom.netlify.app); Moco Mochi Bread Solo - web UMKM roti (mocomochi.netlify.app); Giarva E-Commerce susu etawa (Midtrans); Company Profile PT Gedhong Kencono Mulyo; Company Profile PT Magati Unggul.
+- Keahlian: JavaScript, React, Node.js, Laravel, MySQL, Firebase, Tailwind CSS, Framer Motion, REST API; juga pajak (e-Faktur, PPh 21/23, PPN), administrasi, hardware.
+- Jasa: company profile, sistem informasi, web UMKM, maintenance. Estimasi dibahas di awal.
+- Sertifikasi: BNSP Analis Program, BNSP Junior Web Developer, Coding Camp Dicoding x DBS 2025, selengkapnya di halaman Sertifikasi.
+- CV bisa diunduh di halaman Tentang.
+- Form kontak di web dibalas maksimal 1x24 jam.
+
+ATURAN:
+- Maksimal 4 kalimat pendek per jawaban. Santai, seperti orang Indonesia ngobrol. Tanpa tanda —.
+- Kalau ditanya yang TIDAK ada di fakta (misal usia, alamat rumah, gaji, resep masakan, tugas sekolah): JUJUR bilang tidak tahu / bukan tugasmu, lalu arahkan balik ke topik portfolio atau kontak langsung.
+- Jangan pernah mengarang angka, tanggal, atau fakta.
+- Jangan sebut kamu AI buatan siapa pun selain "asisten virtual di web ini".`;
+
+const cors = (statusCode, body) => ({
+  statusCode,
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  },
+  body: typeof body === "string" ? body : JSON.stringify(body),
+});
+
+export async function handler(event) {
+  if (event.httpMethod === "OPTIONS") return cors(200, "{}");
+  if (event.httpMethod !== "POST") return cors(405, { error: "method" });
+
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) return cors(500, { error: "no-key" });
+
+  let body = {};
+  try {
+    body = JSON.parse(event.body || "{}");
+  } catch {
+    return cors(400, { error: "bad-request" });
+  }
+  const history = Array.isArray(body.messages) ? body.messages.slice(-10) : [];
+  const contents = history
+    .filter((m) => m && (m.role === "user" || m.role === "bot") && String(m.text || "").trim())
+    .map((m) => ({
+      role: m.role === "bot" ? "model" : "user",
+      parts: [{ text: String(m.text).slice(0, 1000) }],
+    }));
+  if (!contents.length || contents[contents.length - 1].role !== "user") {
+    return cors(400, { error: "bad-request" });
+  }
+
+  const payload = {
+    system_instruction: { parts: [{ text: SYSTEM }] },
+    contents,
+    generationConfig: { maxOutputTokens: 350, temperature: 0.7 },
+  };
+
+  let lastErr = "ai-fail";
+  for (const model of MODELS) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+          body: JSON.stringify(payload),
+        }
+      );
+      const j = await res.json().catch(() => ({}));
+      if (res.status === 404) continue; // coba model cadangan
+      if (!res.ok) {
+        lastErr = "ai-fail";
+        break;
+      }
+      const reply = j.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("").trim();
+      if (reply) return cors(200, { reply });
+      lastErr = "ai-fail";
+      break;
+    } catch {
+      lastErr = "ai-fail";
+      break;
+    }
+  }
+  return cors(502, { error: lastErr });
+}
