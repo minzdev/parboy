@@ -131,7 +131,7 @@ export const experience = [
   {
     date: "Agu 2026 - Feb 2027",
     title: "Penata Kelola Sistem dan Teknologi Informasi (Bidang Perencanaan)",
-    org: "Sekretariat BPSDM Perhubungan",
+    org: "Sekretariat BPSDM Perhubungan · Kementerian Perhubungan",
     bullets: [
       "Menyusun perencanaan kebutuhan sistem dan teknologi informasi di lingkungan sekretariat.",
       "Mendokumentasikan usulan dan prioritas pengembangan sistem sesuai kebutuhan bidang.",
