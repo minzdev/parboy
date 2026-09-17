@@ -2,7 +2,7 @@
 
 const RULES = [
   {
-    keywords: ["halo", "hai", " hi", "hello", "pagi", "siang", "sore", "malam", "assalamu", "hey", "hei", "tes", "test", "p ", "bang"],
+    keywords: ["halo", "hallo", "hai", "hello", "hei", "hey", "pagi", "siang", "sore", "malam", "assalamu", "permisi", "tes ", "test "],
     id: "Halo juga! Mau tahu apa soal Suparman? Coba tanya soal pengalaman, proyek, jasa, atau kontak.",
     en: "Hi there! What do you want to know about Suparman? Try asking about experience, projects, services, or contact.",
   },
@@ -69,8 +69,8 @@ const RULES = [
 ];
 
 const FALLBACK = {
-  id: "Hmm, saya cuma tahu soal Suparman: keahlian, pengalaman, proyek, jasa, atau kontak. Coba tanya salah satunya?",
-  en: "Hmm, I only know about Suparman: skills, experience, projects, services, or contact. Try asking one of those?",
+  id: "Itu di luar yang saya tahu. Saya cuma asisten portfolio Suparman: tanya soal keahlian, pengalaman, proyek, jasa, atau kontak.",
+  en: "That's beyond what I know. I'm just Suparman's portfolio assistant: ask about skills, experience, projects, services, or contact.",
 };
 
 export function getReply(input, lang) {
