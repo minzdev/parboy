@@ -57,6 +57,10 @@ export function Chatbot() {
         setMsgs((m) => [...m, { from: "bot", text: j.reply }]);
       } else if (j.error === "no-key") {
         setMsgs((m) => [...m, { from: "bot", text: t("chat.error") }]);
+      } else if (j.error === "bad-key") {
+        setMsgs((m) => [...m, { from: "bot", text: t("chat.errorKey") }]);
+      } else if (j.error === "quota") {
+        setMsgs((m) => [...m, { from: "bot", text: t("chat.errorQuota") }]);
       } else {
         setMsgs((m) => [...m, { from: "bot", text: getReply(userText, lang) }]);
       }

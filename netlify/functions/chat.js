@@ -77,7 +77,14 @@ export async function handler(event) {
       const j = await res.json().catch(() => ({}));
       if (res.status === 404) continue; // coba model cadangan
       if (!res.ok) {
-        lastErr = "ai-fail";
+        const detail = JSON.stringify(j).slice(0, 300);
+        if (res.status === 429) {
+          lastErr = "quota";
+        } else if (res.status === 400 || res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(detail)) {
+          lastErr = "bad-key";
+        } else {
+          lastErr = "ai-fail";
+        }
         break;
       }
       const reply = j.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("").trim();
