@@ -29,7 +29,7 @@ export const stats = [
 export const techGroups = [
   {
     title: "Software Engineering",
-    items: ["JavaScript (ES6+)", "React.js", "Node.js", "Laravel", "MySQL", "Firebase", "Tailwind CSS", "Framer Motion", "RESTful API"],
+    items: ["JavaScript", "React.js", "Node.js", "Laravel", "MySQL", "Firebase", "Tailwind CSS", "Framer Motion", "RESTful API"],
   },
   {
     title: "Mobile Development",

@@ -66,7 +66,7 @@ const socialIcons = {
 /* ikon brand tiap teknologi — warna asli, nama muncul saat hover.
    Logo yang aslinya hitam dibiarkan adaptif agar tidak hilang. */
 const TECH_ICONS = {
-  "JavaScript (ES6+)": { Icon: SiJavascript, color: "#F7DF1E" },
+  "JavaScript": { Icon: SiJavascript, color: "#F7DF1E" },
   "React.js": { Icon: SiReact, color: "#61DAFB" },
   "Node.js": { Icon: SiNodedotjs, color: "#5FA04E" },
   "Laravel": { Icon: SiLaravel, color: "#FF2D20" },
