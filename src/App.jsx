@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Footer, MobileTopBar, ParallaxBg, ProgressBar, Sidebar, useTheme } from "./components/Shell";
+import { Chatbot } from "./components/Chatbot";
 import { LangProvider } from "./i18n";
 import {
   HomePage, TentangPage, PengalamanPage,
@@ -60,6 +61,7 @@ export default function App() {
           <Footer />
         </div>
       </div>
+      <Chatbot />
     </div>
     </LangProvider>
   );
