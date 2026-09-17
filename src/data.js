@@ -78,6 +78,30 @@ export const services = [
 
 export const works = [
   {
+    year: "2026",
+    cat: "Sistem Informasi",
+    title: "MyEkonomi - Personal Money Tracker",
+    desc: "Aplikasi catat keuangan pribadi dengan login, rekap pemasukan dan pengeluaran.",
+    stack: ["React", "Firebase", "Tailwind CSS", "Vite"],
+    link: "https://myekonomi.netlify.app/login",
+  },
+  {
+    year: "2025",
+    cat: "Database Web",
+    title: "7KCOM - Seven Knights Counter & Combo Database",
+    desc: "Database counter meta dan kombo hero Seven Knights untuk susun formasi PvP Arena.",
+    stack: ["React", "Firebase", "Tailwind CSS", "Vite"],
+    link: "https://7kcom.netlify.app/",
+  },
+  {
+    year: "2025",
+    cat: "UMKM Web",
+    title: "Moco Mochi Bread Solo",
+    desc: "Web UMKM roti mochi asal Solo dengan katalog rasa dan pemesanan simpel.",
+    stack: ["React", "Tailwind CSS", "Vite"],
+    link: "https://mocomochi.netlify.app/",
+  },
+  {
     year: "2024",
     cat: "E-Commerce",
     title: "Giarva E-Commerce - Toko Online Susu Etawa",
