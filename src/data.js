@@ -129,6 +129,17 @@ export const works = [
 
 export const experience = [
   {
+    date: "Agu 2026 - Feb 2027",
+    title: "Penata Kelola Sistem dan Teknologi Informasi (Bidang Perencanaan)",
+    org: "Sekretariat BPSDM Perhubungan",
+    bullets: [
+      "Menyusun perencanaan kebutuhan sistem dan teknologi informasi di lingkungan sekretariat.",
+      "Mendokumentasikan usulan dan prioritas pengembangan sistem sesuai kebutuhan bidang.",
+      "Berkoordinasi dengan unit terkait dalam pelaksanaan program TI.",
+      "Menyusun laporan berkala terkait pengelolaan sistem dan TI.",
+    ],
+  },
+  {
     date: "Feb 2025 - Jul 2025",
     title: "Back End & Front End Developer",
     org: "Dicoding x DBS Foundation",
