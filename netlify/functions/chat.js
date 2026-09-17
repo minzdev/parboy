@@ -37,7 +37,7 @@ export async function handler(event) {
   if (event.httpMethod === "OPTIONS") return cors(200, "{}");
   if (event.httpMethod !== "POST") return cors(405, { error: "method" });
 
-  const key = process.env.GEMINI_API_KEY;
+  const key = (process.env.GEMINI_API_KEY || "").trim();
   if (!key) return cors(500, { error: "no-key" });
 
   let body = {};
@@ -75,9 +75,13 @@ export async function handler(event) {
         }
       );
       const j = await res.json().catch(() => ({}));
-      if (res.status === 404) continue; // coba model cadangan
+      if (res.status === 404) {
+        console.log(`chat: model ${model} tidak ada (404), coba cadangan`);
+        continue; // coba model cadangan
+      }
       if (!res.ok) {
         const detail = JSON.stringify(j).slice(0, 300);
+        console.log(`chat: Google menolak (${res.status}): ${detail}`);
         if (res.status === 429) {
           lastErr = "quota";
         } else if (res.status === 400 || res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(detail)) {
@@ -88,7 +92,10 @@ export async function handler(event) {
         break;
       }
       const reply = j.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("").trim();
-      if (reply) return cors(200, { reply });
+      if (reply) {
+        console.log("chat: OK");
+        return cors(200, { reply });
+      }
       lastErr = "ai-fail";
       break;
     } catch {
