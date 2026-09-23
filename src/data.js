@@ -129,7 +129,7 @@ export const works = [
 
 export const experience = [
   {
-    date: "Agu 2026 - Feb 2027",
+    date: "Agu 2026 – Feb 2027",
     title: "Penata Kelola Sistem dan Teknologi Informasi (Bidang Perencanaan)",
     org: "Sekretariat BPSDM Perhubungan · Kementerian Perhubungan",
     bullets: [
@@ -140,7 +140,7 @@ export const experience = [
     ],
   },
   {
-    date: "Feb 2025 - Jul 2025",
+    date: "Feb 2025 – Jul 2025",
     title: "Back End & Front End Developer",
     org: "Dicoding x DBS Foundation",
     bullets: [
@@ -151,7 +151,7 @@ export const experience = [
     ],
   },
   {
-    date: "2021 - Agt 2024",
+    date: "2021 – Agu 2024",
     title: "Staff Finance & IT Support",
     org: "PT. Magati Unggul",
     bullets: [
@@ -162,7 +162,7 @@ export const experience = [
     ],
   },
   {
-    date: "2018 - Mei 2018",
+    date: "2018 – Mei 2018",
     title: "Hardware & System Engineer",
     org: "CV. Salafindo",
     bullets: [
@@ -176,7 +176,7 @@ export const experience = [
 
 export const education = [
   {
-    date: "September 2021 - Desember 2025",
+    date: "September 2021 – Desember 2025",
     title: "S1 Teknologi Informasi",
     org: "Universitas Bina Sarana Informatika · IPK 3.83/4.0",
   },

@@ -336,9 +336,9 @@ export function PengalamanPage() {
           <TimelineCard
             key={e.title}
             icon={Briefcase}
-            date={e.date}
-            title={e.title}
-            org={e.org}
+            date={t(`exp.${i}.date`)}
+            title={t(`exp.${i}.title`)}
+            org={t(`exp.${i}.org`)}
             bullets={lang === "en" ? [0, 1, 2, 3].map((j) => t(`exp.${i}.b${j}`)) : e.bullets}
             delay={i * 0.05}
           />
@@ -363,7 +363,7 @@ export function PengalamanPage() {
           <TimelineCard
             key={e.title}
             icon={GraduationCap}
-            date={e.date}
+            date={t("edu.0.date")}
             title={t("edu.0.title")}
             org={t("edu.0.org")}
             delay={i * 0.05}

@@ -75,15 +75,18 @@ export function downloadCV(lang, t) {
   section(t("cv.exp"));
   experience.forEach((e, i) => {
     const bullets = id ? e.bullets : [0, 1, 2, 3].map((j) => t(`exp.${i}.b${j}`));
+    const jobTitle = t(`exp.${i}.title`);
+    const jobOrg = t(`exp.${i}.org`);
+    const jobDate = t(`exp.${i}.date`);
     need(14);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10.5);
-    const titleLines = wrapped(e.title, 10.5);
+    const titleLines = wrapped(jobTitle, 10.5);
     doc.text(titleLines, M, y);
     y += titleLines.length * 5;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    const orgLines = wrapped(`${e.org} | ${e.date}`, 10);
+    const orgLines = wrapped(`${jobOrg} | ${jobDate}`, 10);
     doc.text(orgLines, M, y);
     y += orgLines.length * 5 + 1;
     bullets.forEach((b) => {
@@ -104,7 +107,7 @@ export function downloadCV(lang, t) {
     y += 5;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    const orgLines = wrapped(`${t("edu.0.org")} | ${e.date}`, 10);
+    const orgLines = wrapped(`${t("edu.0.org")} | ${t("edu.0.date")}`, 10);
     doc.text(orgLines, M, y);
     y += orgLines.length * 5 + 4;
   });
