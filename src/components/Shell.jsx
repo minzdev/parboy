@@ -5,7 +5,7 @@ import {
   Home, User, FlaskConical, Briefcase, Mail,
   Moon, Sun, Menu, X, Code2, BadgeCheck, Activity, Download,
 } from "lucide-react";
-import { SiGithub, SiWhatsapp, SiGmail } from "react-icons/si";
+import { SiGithub, SiGmail } from "react-icons/si";
 import { profile, socials } from "../data";
 import { useLang } from "../i18n";
 
@@ -187,7 +187,6 @@ export function Footer() {
 const socialIcons = {
   github: { Icon: SiGithub },
   linkedin: { Icon: LinkedinBrand, color: "#0A66C2" },
-  wa: { Icon: SiWhatsapp, color: "#25D366" },
   mail: { Icon: SiGmail, color: "#EA4335" },
 };
 

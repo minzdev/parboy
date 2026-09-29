@@ -37,9 +37,9 @@ const RULES = [
     en: "He builds company profiles, information systems, SME sites, and maintenance. Estimates are agreed up front. Just fill the form on the Contact page.",
   },
   {
-    keywords: ["kontak", "hubungi", "contact", "email", " wa", "whatsapp", "linkedin", "telepon", "phone", "nomor", "number", "call"],
-    id: "Bisa lewat WhatsApp 0857-9752-2591 atau email suparman0921@gmail.com. Atau isi form di menu Kontak, dibalas maksimal 1x24 jam.",
-    en: "Reach him on WhatsApp 0857-9752-2591 or email suparman0921@gmail.com. Or fill the Contact form, replies within 24 hours.",
+    keywords: ["kontak", "hubungi", "contact", "email", "whatsapp", "linkedin", "telepon", "phone", "nomor", "number", "call"],
+    id: "Bisa lewat email suparman0921@gmail.com. Atau isi form di menu Kontak, dibalas maksimal 1x24 jam.",
+    en: "Reach him at email suparman0921@gmail.com. Or fill the Contact form, replies within 24 hours.",
   },
   {
     keywords: ["cv", "resume", "unduh", "download", "curriculum"],

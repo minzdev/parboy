@@ -11,7 +11,7 @@ import {
 import {
   SiJavascript, SiReact, SiNodedotjs, SiLaravel, SiMysql, SiFirebase,
   SiTailwindcss, SiFramer, SiAndroid, SiExpo, SiGooglesheets,
-  SiGithub, SiWhatsapp, SiGmail,
+  SiGithub, SiGmail,
 } from "react-icons/si";
 import { LinkedinBrand } from "./components/Shell";
 import {
@@ -59,7 +59,6 @@ function useMenu() {
 const socialIcons = {
   github: { Icon: SiGithub },
   linkedin: { Icon: LinkedinBrand, color: "#0A66C2" },
-  wa: { Icon: SiWhatsapp, color: "#25D366" },
   mail: { Icon: SiGmail, color: "#EA4335" },
 };
 

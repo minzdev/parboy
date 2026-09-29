@@ -224,6 +224,5 @@ export const certifications = [
 export const socials = [
   { label: "GitHub", href: "https://github.com/minzdev", key: "github", handle: "@minzdev" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/suparman0921/", key: "linkedin", handle: "/in/suparman0921" },
-  { label: "WhatsApp", href: "https://wa.me/6285797522591", key: "wa", handle: "0857-9752-2591" },
   { label: "Email", href: "mailto:suparman0921@gmail.com", key: "mail", handle: "suparman0921@gmail.com" },
 ];

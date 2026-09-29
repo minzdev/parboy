@@ -1,5 +1,5 @@
 import { jsPDF } from "jspdf";
-import { profile, experience, education, certifications, techGroups, socials } from "./data";
+import { profile, experience, education, certifications, techGroups } from "./data";
 
 /* CV format ATS: satu kolom, teks hitam semua, font standar, tanpa grafik. */
 export function downloadCV(lang, t) {
@@ -34,8 +34,7 @@ export function downloadCV(lang, t) {
   doc.text(id ? "Web Developer & Analis Program" : "Web Developer & Program Analyst", M, y);
   y += 6;
 
-  const wa = socials.find((s) => s.key === "wa")?.handle || "";
-  const contact = [profile.email, wa, "github.com/minzdev", "linkedin.com/in/suparman0921", profile.location]
+  const contact = [profile.email, "github.com/minzdev", "linkedin.com/in/suparman0921", profile.location]
     .filter(Boolean)
     .join(" | ");
   doc.setFontSize(9);
